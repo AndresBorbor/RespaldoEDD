@@ -23,6 +23,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
@@ -37,6 +38,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.TilePane;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 
 /**
  * FXML Controller class
@@ -140,7 +142,7 @@ public class VentanaEditarController implements Initializable {
         listaFotos = alb.getListaFotos();
         int index = listaAlbumes.indexOf(alb);
         Album a = listaAlbumes.get(index);
-        if(a!=null ){    
+        if(a!=null && fTemp != null){    
             listaFotos.remove(listaFotos.indexOf(fTemp));
             File f = new File(fTemp.getRuta());
             if(f.exists()){
@@ -159,7 +161,23 @@ public class VentanaEditarController implements Initializable {
         }
         
     }
-    
+    @FXML
+    private void editarFoto(ActionEvent event){
+        Album a = (Album)cmbBoxAlbum.getSelectionModel().getSelectedItem();
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("EditarFoto.fxml"));
+            Parent root = fxmlLoader.load();
+            EditarFotoController jc = fxmlLoader.getController();
+            Scene scene = new Scene(root);
+            Stage stage = new Stage();
+            stage.setScene(scene);
+            jc.init(fTemp, a);
+            stage.show();
+            
+        } catch (IOException ex) {
+            ex.getMessage();
+        }
+    }
     @FXML
     private void btnBack(ActionEvent event) {
         try {
