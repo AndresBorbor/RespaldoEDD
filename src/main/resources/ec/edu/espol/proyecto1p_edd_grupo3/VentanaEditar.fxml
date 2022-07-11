@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="654.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ec.edu.espol.controllers.VentanaEditarController">
+   <children>
+      <Button layoutX="63.0" layoutY="355.0" mnemonicParsing="false" onAction="#btnBack" text="Regresar" />
+      <Button fx:id="btnEditar" layoutX="337.0" layoutY="355.0" mnemonicParsing="false" text="Editar" />
+      <Button fx:id="btnEliminarFoto" layoutX="458.0" layoutY="355.0" mnemonicParsing="false" onAction="#eliminarFoto" text="Eliminar" />
+      <ComboBox fx:id="cmbBoxAlbum" layoutX="19.0" layoutY="89.0" onAction="#mostrarFotos" prefHeight="25.0" prefWidth="111.0" />
+      <Label fx:id="lblSeleccionarAlbum" layoutX="19.0" layoutY="50.0" prefHeight="17.0" prefWidth="150.0" text="Seleccionar album" />
+      <ScrollPane fx:id="scrollPaneFotos" layoutX="244.0" layoutY="50.0" prefHeight="275.0" prefWidth="360.0">
+        <content>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="275.0" prefWidth="360.0" />
+        </content>
+      </ScrollPane>
+      <Label fx:id="lblDescFoto" layoutX="324.0" layoutY="336.0" prefHeight="17.0" prefWidth="201.0" />
+      <Button fx:id="btnEliminarAlbum" layoutX="147.0" layoutY="89.0" mnemonicParsing="false" onAction="#eliminarAlbum" text="Eliminar" />
+   </children>
+</AnchorPane>
