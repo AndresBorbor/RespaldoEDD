@@ -8,6 +8,7 @@ import ec.edu.espol.model.Album;
 import ec.edu.espol.model.Fotografia;
 import ec.edu.espol.model.Persona;
 import ec.edu.espol.proyecto1p_edd_grupo3.App;
+import ec.edu.espol.util.EndiabladaLinkedList;
 import ec.edu.espol.util.ListaArreglo;
 import java.io.IOException;
 import java.net.URL;
@@ -18,6 +19,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -52,6 +54,8 @@ public class EditarFotoController implements Initializable {
     private Label lblNombreAlbum;
 
     private Fotografia tempFoto;
+    private ListaArreglo<Album> listaAlbumes;
+    private Album albumTemp;
 
     /**
      * Initializes the controller class.
@@ -59,6 +63,7 @@ public class EditarFotoController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
+        listaAlbumes = App.leerLista();
     }
 
     @FXML
@@ -78,10 +83,16 @@ public class EditarFotoController implements Initializable {
                     lPersonas.addLast(new Persona(nombre));
                 }
             }
-             
-            tempFoto.setListaPersonas(lPersonas);
-            tempFoto.setDescripcion(descripcion);
-            tempFoto.setLugar(lugar);
+            int index = listaAlbumes.indexOf(albumTemp);
+            Album album = listaAlbumes.get(index);
+            EndiabladaLinkedList<Fotografia> listaFotos = album.getListaFotos();
+            int indiceFoto = listaFotos.indexOf(tempFoto);
+            Fotografia f = listaFotos.get(indiceFoto);
+            f.setListaPersonas(lPersonas);
+            f.setDescripcion(descripcion);
+            f.setLugar(lugar);
+            App.escribirLista(listaAlbumes);
+            App.mostrarAlerta(Alert.AlertType.INFORMATION, "FOTO EDITADA", "La foto se ha editado con éxito");
         }
 
     }
@@ -100,8 +111,9 @@ public class EditarFotoController implements Initializable {
     }
 
     public void init(Fotografia fTemp, Album alb) {
+        albumTemp = alb;
         tempFoto = fTemp;
-        lblAlbum.setText(alb.getNombre());
+        lblNombreAlbum.setText(alb.getNombre());
         txtPersonas.setText(tempFoto.getListaPersonas().toString());
         txtDescripcion.setText(tempFoto.getDescripcion());
         txtLugar.setText(tempFoto.getLugar());

@@ -142,6 +142,7 @@ public class VentanaEditarController implements Initializable {
         listaFotos = alb.getListaFotos();
         int index = listaAlbumes.indexOf(alb);
         Album a = listaAlbumes.get(index);
+        
         if(a!=null && fTemp != null){    
             listaFotos.remove(listaFotos.indexOf(fTemp));
             File f = new File(fTemp.getRuta());
@@ -163,7 +164,11 @@ public class VentanaEditarController implements Initializable {
     }
     @FXML
     private void editarFoto(ActionEvent event){
-        Album a = (Album)cmbBoxAlbum.getSelectionModel().getSelectedItem();
+        listaAlbumes = App.leerLista();
+        Album alb = (Album)cmbBoxAlbum.getSelectionModel().getSelectedItem();
+        int index = listaAlbumes.indexOf(alb);
+        Album a = listaAlbumes.get(index);
+        
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("EditarFoto.fxml"));
             Parent root = fxmlLoader.load();
@@ -173,9 +178,12 @@ public class VentanaEditarController implements Initializable {
             stage.setScene(scene);
             jc.init(fTemp, a);
             stage.show();
+            stage.close();
             
-        } catch (IOException ex) {
+        }catch (IOException ex) {
             ex.getMessage();
+        }catch(Exception ex){
+             App.mostrarAlerta(Alert.AlertType.ERROR, "FOTO SIN SELECCIONAR", "Eliga una foto primero");
         }
     }
     @FXML
