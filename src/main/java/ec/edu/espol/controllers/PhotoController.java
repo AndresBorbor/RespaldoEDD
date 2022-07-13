@@ -77,6 +77,7 @@ public class PhotoController implements Initializable {
     //Variables path para copiar la imagen
     private Path from;
     private Path to;
+    private String imageCod;
     @FXML
     private Button btnCargarFoto;
 
@@ -111,7 +112,7 @@ public class PhotoController implements Initializable {
             Image image = new Image("file:" + imgFile.getAbsolutePath());
             
             from = Paths.get(imgFile.toURI());
-            to = Paths.get("src/archivos/" + lblNombreAlbum.getText() + "/" + codigoFoto + ".jpg");
+            imageCod = image.toString();
             
             imgPreView.setImage(image);
         }
@@ -121,6 +122,7 @@ public class PhotoController implements Initializable {
     public void cargarImagen(ActionEvent event) throws IOException {
         /*Album nuevoAlbum = new Album(lblNombreAlbum.getText());
         File folder = new File("src/archivos/" + nuevoAlbum.getNombre());*/
+        to = Paths.get("src/archivos/" + lblNombreAlbum.getText() + "/" + imageCod+codigoFoto + ".jpg");
         ListaArreglo<Path> listaTemp = new ListaArreglo<Path>();
         listaTemp.addLast(from);
         listaTemp.addLast(to);
@@ -191,7 +193,15 @@ public class PhotoController implements Initializable {
         }
 
     }
-
+    
+    //@FXML
+    /*private String nombreFotoAleatorio(){
+        String nombreF;
+        
+        return nombreF;
+    }*/
+    
+    
     @FXML
     private void crearAlbum(ActionEvent event) throws IOException {
         /*LocalDate fecha = datePicker.getValue();
@@ -225,7 +235,7 @@ public class PhotoController implements Initializable {
 
         //Creacion del album y añadir la foto a su lista de fotos
         
-        if(!listaTempPaths.getLast().getLast().equals(to)){
+        if(!listaTempPaths.isEmpty() && !listaTempPaths.getLast().getLast().equals(to)){
             App.mostrarAlerta(Alert.AlertType.WARNING, "Foto inexistente", "No se ha agregado la foto");
         }else{
         
