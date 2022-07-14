@@ -16,13 +16,10 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ResourceBundle;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.geometry.Insets;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
@@ -30,15 +27,9 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.TilePane;
-import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 /**
@@ -166,10 +157,16 @@ public class VentanaEditarController implements Initializable {
 
     @FXML
     private void editarFoto(ActionEvent event) {
-        listaAlbumes = App.leerLista();
         Album alb = (Album) cmbBoxAlbum.getSelectionModel().getSelectedItem();
-        int index = listaAlbumes.indexOf(alb);
-        Album a = listaAlbumes.get(index);
+        if(alb == null){
+            App.mostrarAlerta(Alert.AlertType.ERROR, "ALBUM NO SELECCIONADO", "Seleccione un album primero");
+        }else{
+            listaAlbumes = App.leerLista();
+        
+            int index = listaAlbumes.indexOf(alb);
+            Album a = listaAlbumes.get(index);
+        
+        
 
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("EditarFoto.fxml"));
@@ -179,13 +176,15 @@ public class VentanaEditarController implements Initializable {
             Stage stage = new Stage();
             stage.setScene(scene);
             jc.init(fTemp, a);
-            stage.show();
-            stage.close();
+            stage.showAndWait();
+            
 
-        } catch (IOException ex) {
-            ex.getMessage();
-        } catch (Exception ex) {
-            App.mostrarAlerta(Alert.AlertType.ERROR, "FOTO SIN SELECCIONAR", "Eliga una foto primero");
+            } catch (IOException ex) {
+                System.out.println(ex.getMessage());
+            
+            } catch (Exception ex) {
+                App.mostrarAlerta(Alert.AlertType.ERROR, "FOTO SIN SELECCIONAR", "Eliga una foto primero");
+            }
         }
     }
 

@@ -5,14 +5,13 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 
-
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/18" fx:controller="ec.edu.espol.controllers.EditarFotoController">
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ec.edu.espol.controllers.EditarFotoController">
    <children>
       <Label fx:id="lblAlbum" layoutX="80.0" layoutY="46.0" text="Album: " />
       <Label fx:id="lblDescripcion" layoutX="80.0" layoutY="113.0" text="Descripcion: " />
       <Label fx:id="lblLugar" layoutX="80.0" layoutY="183.0" prefHeight="17.0" prefWidth="78.0" text="Lugar:" />
+      <Button fx:id="btnCancelarEdicion" layoutX="229.0" layoutY="330.0" mnemonicParsing="false" onAction="#cancelarEdicion" text="Cancelar" />
       <Label fx:id="lblPersonas" layoutX="80.0" layoutY="252.0" text="Personas: " />
-      <Button fx:id="btnCancelar" layoutX="229.0" layoutY="330.0" mnemonicParsing="false" onAction="#cancelar" text="Cancelar" />
       <Button fx:id="btnEditar" layoutX="311.0" layoutY="330.0" mnemonicParsing="false" onAction="#editar" text="Editar" />
       <TextField fx:id="txtDescripcion" layoutX="237.0" layoutY="109.0" />
       <TextField fx:id="txtLugar" layoutX="237.0" layoutY="179.0" />

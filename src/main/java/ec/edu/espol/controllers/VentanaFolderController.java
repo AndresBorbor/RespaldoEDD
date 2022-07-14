@@ -7,8 +7,6 @@ package ec.edu.espol.controllers;
 import ec.edu.espol.model.Album;
 import ec.edu.espol.proyecto1p_edd_grupo3.App;
 import ec.edu.espol.util.ListaArreglo;
-import java.io.BufferedReader;
-import java.io.FileReader;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;

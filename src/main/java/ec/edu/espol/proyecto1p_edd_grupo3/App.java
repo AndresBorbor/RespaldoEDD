@@ -23,6 +23,8 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import javafx.scene.control.Alert;
 import java.io.Serializable;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
@@ -89,8 +91,10 @@ public class App extends Application implements Serializable {
                     String lugar = datosFotos[2];
                     String fe = datosFotos[3];
                     String personas = datosFotos[4];
-                    personas.replaceAll("\\[", "");
-                    personas.replaceAll("\\]", "");
+                    
+                    personas = personas.replaceAll("\\[|\\]", "");
+                    
+                    
                     ListaArreglo<Persona> lPersonas = new ListaArreglo<Persona>();
                     if(!personas.equals("")){
                         String [] arregloPersonas = personas.split(", ");
@@ -107,7 +111,9 @@ public class App extends Application implements Serializable {
                     f.setRuta(ruta);
                     a.agregarFoto(f);
                     
+                    
                 }
+               
                 listaAlbumes.addLast(a);
             }
 
@@ -121,6 +127,8 @@ public class App extends Application implements Serializable {
             
             return listaAlbumes;
         }
+        
+
     }
 
     public static void escribirLista(ListaArreglo<Album> lista) {
@@ -136,7 +144,11 @@ public class App extends Application implements Serializable {
                     bWriter.write(fo.getDescripcion() + ";");
                     bWriter.write(fo.getLugar() + ";");
                     bWriter.write(fo.getFecha().toString() + ";");
-                    bWriter.write(fo.getListaPersonas().toString() + "&");
+                    
+                    bWriter.write(fo.getListaPersonas() + "&");
+                    
+                      
+                    
                 }
                 bWriter.write("\n");
             }
@@ -146,6 +158,8 @@ public class App extends Application implements Serializable {
         } catch (IOException e) {
             System.out.println("No se puedo escribir el archivo");
         }
+        
+        
     }
 
     public static void main(String[] args) {

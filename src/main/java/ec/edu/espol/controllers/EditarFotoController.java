@@ -41,8 +41,6 @@ public class EditarFotoController implements Initializable {
     @FXML
     private Label lblPersonas;
     @FXML
-    private Button btnCancelar;
-    @FXML
     private Button btnEditar;
     @FXML
     private TextField txtDescripcion;
@@ -56,6 +54,8 @@ public class EditarFotoController implements Initializable {
     private Fotografia tempFoto;
     private ListaArreglo<Album> listaAlbumes;
     private Album albumTemp;
+    @FXML
+    private Button btnCancelarEdicion;
 
     /**
      * Initializes the controller class.
@@ -73,8 +73,8 @@ public class EditarFotoController implements Initializable {
         String lugar = txtLugar.getText();
         String descripcion = txtDescripcion.getText();
         if (lugar.replaceAll(" ", "").length() != 0 && descripcion.replaceAll(" ", "").length() != 0 && personas.replaceAll(" ", "").length() != 0) {
-            personas.replaceAll("\\[", "");
-            personas.replaceAll("\\]", "");
+            personas = personas.replaceAll("\\[", "");
+            personas = personas.replaceAll("\\]", "");
 
             ListaArreglo<Persona> lPersonas = new ListaArreglo<Persona>();
             if (!personas.equals("")) {
@@ -98,15 +98,20 @@ public class EditarFotoController implements Initializable {
     }
 
     @FXML
-    private void cancelar(ActionEvent event) {
+    private void cancelarEdicion(ActionEvent event) {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("VentanaEditar.fxml"));
             Parent root = fxmlLoader.load();
             VentanaEditarController jc = fxmlLoader.getController();
+            
+            Stage stage = (Stage) btnCancelarEdicion.getScene().getWindow();
+            
             App.scene.setRoot(root);
-
-        } catch (IOException ex) {
-            ex.getMessage();
+            stage.close();
+            
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
+            
         }
     }
 

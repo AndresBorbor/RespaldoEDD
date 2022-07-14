@@ -120,8 +120,7 @@ public class PhotoController implements Initializable {
 
     @FXML
     public void cargarImagen(ActionEvent event) throws IOException {
-        /*Album nuevoAlbum = new Album(lblNombreAlbum.getText());
-        File folder = new File("src/archivos/" + nuevoAlbum.getNombre());*/
+        
         to = Paths.get("src/archivos/" + lblNombreAlbum.getText() + "/" + imageCod+codigoFoto + ".jpg");
         ListaArreglo<Path> listaTemp = new ListaArreglo<Path>();
         listaTemp.addLast(from);
@@ -159,14 +158,7 @@ public class PhotoController implements Initializable {
             f.setRuta(to.toString());
             ListaTempFotos.addLast(f);
             App.mostrarAlerta(Alert.AlertType.CONFIRMATION, "Resultado", "Imagen añadida con éxito");
-            /*File foto = new File(to.toString());
-            if(!foto.exists()){
-                Files.copy(this.from, this.to);
-                codigoFoto++;
-                App.mostrarAlerta(Alert.AlertType.CONFIRMATION, "Resultado", "Imagen añadida con éxito");
-            }else{
-                App.mostrarAlerta(Alert.AlertType.WARNING, "Cuidado!", "Esta imagen ya ha sido agregada anteriormente");
-            }*/
+            
         } else {
             App.mostrarAlerta(Alert.AlertType.WARNING, "Datos Incompletos", "Recuerde llenar todos los campos");
         }
@@ -194,44 +186,8 @@ public class PhotoController implements Initializable {
 
     }
     
-    //@FXML
-    /*private String nombreFotoAleatorio(){
-        String nombreF;
-        
-        return nombreF;
-    }*/
-    
-    
     @FXML
     private void crearAlbum(ActionEvent event) throws IOException {
-        /*LocalDate fecha = datePicker.getValue();
-
-        String descripcion = txtDescripcion.getText();
-        Fotografia f;
-        String lugar = txtLugar.getText();
-        ListaArreglo<Persona> lPersonas = new ListaArreglo<Persona>();
-
-        String nombresPersonas = txtPersonas.getText();
-        //Validacion de todos los campos necesarios completos
-        if (fecha.toString().replaceAll(" ", "").length() != 0 && fecha instanceof LocalDate && descripcion.replaceAll(" ", "").length() != 0 && lugar.replaceAll(" ", "").length() != 0 && imgPreView.getImage()!= null){
-
-            if (nombresPersonas.contains(", ")) {
-                String[] nPersonas = nombresPersonas.split(", ");
-                for (String nombre : nPersonas) {
-                    Persona p = new Persona(nombre);
-                    lPersonas.addLast(p);
-                }
-                f = new Fotografia(lugar, lPersonas, descripcion, fecha);
-            } else if (nombresPersonas.replaceAll(" ", "").length() != 0) {
-                lPersonas.addLast(new Persona(nombresPersonas));
-                f = new Fotografia(lugar, lPersonas, descripcion, fecha);
-            } else {
-
-                f = new Fotografia(lugar,lPersonas, descripcion, fecha);
-
-            }
-            //Añadir ruta al atributo RUTA de la fotografia
-            f.setRuta(to.toString());*/
 
         //Creacion del album y añadir la foto a su lista de fotos
         
@@ -253,20 +209,11 @@ public class PhotoController implements Initializable {
                 }
 
 
-                //Files.copy(from, to);
+                
                 alb.setListaFotos(ListaTempFotos);
-                //alb.getListaFotos().addLast(f);
+                
 
-                /*File file = new File(f.getRuta());
-
-                if (!(file.exists())) {
-                    File folder = new File("src/archivos/" + alb.getNombre());
-                    if (!folder.exists()) {
-                        folder.mkdir();
-                    }
-                    Files.copy(from, to);
-
-                }*/
+                
                 ListaArreglo<Album> listaTemp = App.leerLista();
                 listaTemp.addLast(alb);
                 App.escribirLista(listaTemp);
