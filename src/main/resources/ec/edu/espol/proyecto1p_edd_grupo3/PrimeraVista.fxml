@@ -30,11 +30,12 @@
           <Menu mnemonicParsing="false" text="Help">
             <items>
               <MenuItem mnemonicParsing="false" text="About" />
+                  <MenuItem mnemonicParsing="false" text="Search" />
             </items>
           </Menu>
         </menus>
       </MenuBar>
-      <ScrollPane layoutX="178.0" layoutY="43.0" prefHeight="322.0" prefWidth="389.0">
+      <ScrollPane layoutX="204.0" layoutY="99.0" prefHeight="322.0" prefWidth="389.0">
          <content>
           <AnchorPane fx:id="anchorPaneFotos" minHeight="0.0" minWidth="0.0" prefHeight="326.0" prefWidth="402.0">
                <children>
@@ -52,7 +53,7 @@
                </children></AnchorPane>
          </content>
       </ScrollPane>
-      <ComboBox fx:id="folders" layoutX="10.0" layoutY="43.0" onAction="#mostrarFotos" prefHeight="25.0" prefWidth="141.0" />
+      <ComboBox fx:id="folders" layoutX="14.0" layoutY="105.0" onAction="#mostrarFotos" prefHeight="25.0" prefWidth="141.0" promptText="Álbumes" />
       <Button fx:id="btnAtras" layoutX="288.0" layoutY="438.0" mnemonicParsing="false" onAction="#anterior" prefHeight="25.0" prefWidth="55.0" text="Atras" />
       <Button fx:id="btnSiguiente" layoutX="398.0" layoutY="438.0" mnemonicParsing="false" onAction="#avanzar" text="Siguiente" />
       <HBox layoutX="162.0" layoutY="372.0" prefHeight="66.0" prefWidth="405.0" />

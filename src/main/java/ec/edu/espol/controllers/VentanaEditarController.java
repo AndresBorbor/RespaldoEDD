@@ -27,6 +27,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.TilePane;
@@ -61,6 +62,8 @@ public class VentanaEditarController implements Initializable {
     private Button btnAgregarFoto;
 
     private Album albumSeleccionado;
+    @FXML
+    private TextField txtBuscar;
 
     /**
      * Initializes the controller class.
@@ -69,8 +72,8 @@ public class VentanaEditarController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
         listaAlbumes = App.leerLista();
-        String filename = "src/archivos/listaAlbum.dat";
-        Path p = Paths.get(filename);
+        
+        
         for (int i = 0; i < listaAlbumes.size(); i++) {
             cmbBoxAlbum.getItems().add(listaAlbumes.get(i));
         }
@@ -224,6 +227,18 @@ public class VentanaEditarController implements Initializable {
                 ex.getMessage();
             }
         }
-
     }
+    
+    @FXML
+    private void filtrar(){
+        String textoBuscar = txtBuscar.getText();
+        if(!textoBuscar.contains(", ")){
+            
+        }else{
+            String[] listaPeronas = textoBuscar.split(", ");
+            
+        }
+        
+    }
+    
 }
