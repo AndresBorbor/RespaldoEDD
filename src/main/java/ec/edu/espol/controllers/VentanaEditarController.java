@@ -57,6 +57,10 @@ public class VentanaEditarController implements Initializable {
     private Button btnEliminarAlbum;
 
     private Fotografia fTemp;
+    @FXML
+    private Button btnAgregarFoto;
+
+    private Album albumSeleccionado;
 
     /**
      * Initializes the controller class.
@@ -107,12 +111,12 @@ public class VentanaEditarController implements Initializable {
     @FXML
     private void eliminarAlbum(ActionEvent event) throws IOException {
         listaAlbumes = App.leerLista();
-        Album a = (Album) cmbBoxAlbum.getSelectionModel().getSelectedItem();
-        if (a != null) {
-            int indice = listaAlbumes.indexOf(a);
+        albumSeleccionado = (Album) cmbBoxAlbum.getSelectionModel().getSelectedItem();
+        if (albumSeleccionado != null) {
+            int indice = listaAlbumes.indexOf(albumSeleccionado);
             listaAlbumes.remove(indice);
-            Path p = Paths.get("src/archivos/" + a.getNombre());
-            File f = new File("src/archivos/" + a.getNombre());
+            Path p = Paths.get("src/archivos/" + albumSeleccionado.getNombre());
+            File f = new File("src/archivos/" + albumSeleccionado.getNombre());
             String[] entries = f.list();
             for (String s : entries) {
                 File currentFile = new File(f.getPath(), s);
@@ -132,9 +136,9 @@ public class VentanaEditarController implements Initializable {
     private void eliminarFoto(ActionEvent event) {
 
         listaAlbumes = App.leerLista();
-        Album alb = (Album) cmbBoxAlbum.getSelectionModel().getSelectedItem();
-        listaFotos = alb.getListaFotos();
-        int index = listaAlbumes.indexOf(alb);
+        albumSeleccionado = (Album) cmbBoxAlbum.getSelectionModel().getSelectedItem();
+        listaFotos = albumSeleccionado.getListaFotos();
+        int index = listaAlbumes.indexOf(albumSeleccionado);
         Album a = listaAlbumes.get(index);
 
         if (a != null && fTemp != null) {
@@ -157,31 +161,28 @@ public class VentanaEditarController implements Initializable {
 
     @FXML
     private void editarFoto(ActionEvent event) {
-        Album alb = (Album) cmbBoxAlbum.getSelectionModel().getSelectedItem();
-        if(alb == null){
+        albumSeleccionado = (Album) cmbBoxAlbum.getSelectionModel().getSelectedItem();
+        if (albumSeleccionado == null) {
             App.mostrarAlerta(Alert.AlertType.ERROR, "ALBUM NO SELECCIONADO", "Seleccione un album primero");
-        }else{
+        } else {
             listaAlbumes = App.leerLista();
-        
-            int index = listaAlbumes.indexOf(alb);
-            Album a = listaAlbumes.get(index);
-        
-        
 
-        try {
-            FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("EditarFoto.fxml"));
-            Parent root = fxmlLoader.load();
-            EditarFotoController jc = fxmlLoader.getController();
-            Scene scene = new Scene(root);
-            Stage stage = new Stage();
-            stage.setScene(scene);
-            jc.init(fTemp, a);
-            stage.showAndWait();
-            
+            int index = listaAlbumes.indexOf(albumSeleccionado);
+            Album a = listaAlbumes.get(index);
+
+            try {
+                FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("EditarFoto.fxml"));
+                Parent root = fxmlLoader.load();
+                EditarFotoController jc = fxmlLoader.getController();
+                Scene scene = new Scene(root);
+                Stage stage = new Stage();
+                stage.setScene(scene);
+                jc.init(fTemp, a);
+                stage.showAndWait();
 
             } catch (IOException ex) {
                 System.out.println(ex.getMessage());
-            
+
             } catch (Exception ex) {
                 App.mostrarAlerta(Alert.AlertType.ERROR, "FOTO SIN SELECCIONAR", "Eliga una foto primero");
             }
@@ -199,5 +200,30 @@ public class VentanaEditarController implements Initializable {
         } catch (IOException ex) {
             ex.getMessage();
         }
+    }
+
+    @FXML
+    private void agregarFoto() {
+        albumSeleccionado = (Album) cmbBoxAlbum.getSelectionModel().getSelectedItem();
+        if (albumSeleccionado == null) {
+            App.mostrarAlerta(Alert.AlertType.ERROR, "ALBUM NO SELECCIONADO", "Seleccione un album primero");
+        } else {
+            try {
+                FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("Photo.fxml"));
+                Parent root = fxmlLoader.load();
+                PhotoController jc = fxmlLoader.getController();
+                Scene scene = new Scene(root);
+                Stage stage = new Stage();
+                stage.setScene(scene);
+                jc.init(albumSeleccionado);
+                stage.showAndWait();
+                
+                
+
+            } catch (IOException ex) {
+                ex.getMessage();
+            }
+        }
+
     }
 }

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+
+
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/18" fx:controller="ec.edu.espol.controllers.AgregarFotoController">
+   <children>
+      <Label fx:id="lblAlbum" layoutX="120.0" layoutY="74.0" text="Album" />
+      <Label layoutX="120.0" layoutY="108.0" />
+      <Label fx:id="lblLugar" layoutX="122.0" layoutY="117.0" text="Lugar" />
+      <Label fx:id="lblDescripcion" layoutX="121.0" layoutY="163.0" text="Descripcion" />
+      <Label fx:id="lblFecha" layoutX="122.0" layoutY="200.0" text="Fecha" />
+      <Label fx:id="lblPersonas" layoutX="121.0" layoutY="240.0" text="Personas" />
+      <Label fx:id="lblIngreseFotos" layoutX="120.0" layoutY="284.0" text="Ingrese sus Fotos" />
+      <Label fx:id="lblNombreAlbum" layoutX="300.0" layoutY="74.0" prefHeight="17.0" prefWidth="155.0" />
+      <TextField layoutX="319.0" layoutY="113.0" />
+      <TextField layoutX="319.0" layoutY="236.0" />
+      <TextField layoutX="319.0" layoutY="159.0" />
+   </children>
+</AnchorPane>

@@ -33,6 +33,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 
 /**
  * FXML Controller class
@@ -110,24 +111,24 @@ public class PhotoController implements Initializable {
         if (imgFile != null) {
 
             Image image = new Image("file:" + imgFile.getAbsolutePath());
-            
+
             from = Paths.get(imgFile.toURI());
             imageCod = image.toString();
-            
+
             imgPreView.setImage(image);
         }
     }
 
     @FXML
     public void cargarImagen(ActionEvent event) throws IOException {
-        
-        to = Paths.get("src/archivos/" + lblNombreAlbum.getText() + "/" + imageCod+codigoFoto + ".jpg");
+
+        to = Paths.get("src/archivos/" + lblNombreAlbum.getText() + "/" + imageCod + codigoFoto + ".jpg");
         ListaArreglo<Path> listaTemp = new ListaArreglo<Path>();
         listaTemp.addLast(from);
         listaTemp.addLast(to);
         listaTempPaths.addLast(listaTemp);
         codigoFoto++;
-        
+
         LocalDate fecha = datePicker.getValue();
 
         String descripcion = txtDescripcion.getText();
@@ -158,7 +159,7 @@ public class PhotoController implements Initializable {
             f.setRuta(to.toString());
             ListaTempFotos.addLast(f);
             App.mostrarAlerta(Alert.AlertType.CONFIRMATION, "Resultado", "Imagen añadida con éxito");
-            
+
         } else {
             App.mostrarAlerta(Alert.AlertType.WARNING, "Datos Incompletos", "Recuerde llenar todos los campos");
         }
@@ -185,16 +186,15 @@ public class PhotoController implements Initializable {
         }
 
     }
-    
+
     @FXML
     private void crearAlbum(ActionEvent event) throws IOException {
 
         //Creacion del album y añadir la foto a su lista de fotos
-        
-        if(!listaTempPaths.isEmpty() && !listaTempPaths.getLast().getLast().equals(to)){
+        if (!listaTempPaths.isEmpty() && !listaTempPaths.getLast().getLast().equals(to)) {
             App.mostrarAlerta(Alert.AlertType.WARNING, "Foto inexistente", "No se ha agregado la foto");
-        }else{
-        
+        } else {
+
             if (!ListaTempFotos.isEmpty()) {
 
                 Album alb = new Album(lblNombreAlbum.getText());
@@ -203,17 +203,13 @@ public class PhotoController implements Initializable {
                     folder.mkdir();
                 }
 
-                for(int i = 0; i<listaTempPaths.size(); i++){
+                for (int i = 0; i < listaTempPaths.size(); i++) {
                     ListaArreglo<Path> lPath = listaTempPaths.get(i);
                     Files.copy(lPath.get(0), lPath.get(1));
                 }
 
-
-                
                 alb.setListaFotos(ListaTempFotos);
-                
 
-                
                 ListaArreglo<Album> listaTemp = App.leerLista();
                 listaTemp.addLast(alb);
                 App.escribirLista(listaTemp);
@@ -237,5 +233,53 @@ public class PhotoController implements Initializable {
                 App.mostrarAlerta(Alert.AlertType.WARNING, "Datos Incompletos", "Recuerde llenar todos los campos con los datos correctos");
             }
         }
+    }
+
+    @FXML
+    public void init(Album alb) throws IOException {
+        lblNombreAlbum.setText(alb.getNombre());
+        btnCrearAlbum.setText("Agregar Foto");
+        ListaArreglo<Album> listaAlbumesTemp = App.leerLista();
+        int indice = listaAlbumesTemp.indexOf(alb);
+        Album album = listaAlbumesTemp.get(indice);
+        EndiabladaLinkedList<Fotografia> listaFotosAlbum = album.getListaFotos();
+        
+        //Expresión lambda para cambiar la accion del botón crearAlbum
+        btnCrearAlbum.setOnAction(ev -> {
+            if (!listaTempPaths.isEmpty() && !listaTempPaths.getLast().getLast().equals(to)) {
+                App.mostrarAlerta(Alert.AlertType.WARNING, "Foto inexistente", "No se ha agregado la foto");
+            } else {
+                if (!ListaTempFotos.isEmpty()) {
+                    File folder = new File("src/archivos/" + alb.getNombre());
+                    
+                    for (int i = 0; i < listaTempPaths.size(); i++) {
+                        ListaArreglo<Path> lPath = listaTempPaths.get(i);
+                        listaFotosAlbum.add(ListaTempFotos.get(i)); 
+                        try {
+                            Files.copy(lPath.get(0), lPath.get(1));
+                            FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("PrimeraVista.fxml"));
+                            Parent root = fxmlLoader.load();
+                            PrimeraVistaController jc = fxmlLoader.getController();
+                            
+                            App.scene.setRoot(root);
+                            Stage stage = (Stage) btnCrearAlbum.getScene().getWindow();
+                            stage.close();
+                        } catch (IOException ex) {
+                            ex.printStackTrace();
+                        }
+                           
+                        
+                        
+                    }
+                    App.escribirLista(listaAlbumesTemp);
+                    App.mostrarAlerta(Alert.AlertType.INFORMATION, "FOTO AGREGADA", "La foto se ha agregado con éxito");
+   
+                }else {
+                    App.mostrarAlerta(Alert.AlertType.WARNING, "Datos Incompletos", "Recuerde llenar todos los campos con los datos correctos");
+                }   
+
+            }
+        });
+
     }
 }

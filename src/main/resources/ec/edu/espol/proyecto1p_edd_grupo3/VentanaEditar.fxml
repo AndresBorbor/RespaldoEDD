@@ -10,7 +10,7 @@
    <children>
       <Button layoutX="63.0" layoutY="355.0" mnemonicParsing="false" onAction="#btnBack" text="Regresar" />
       <Button fx:id="btnEditar" layoutX="337.0" layoutY="355.0" mnemonicParsing="false" onAction="#editarFoto" text="Editar" />
-      <Button fx:id="btnEliminarFoto" layoutX="458.0" layoutY="355.0" mnemonicParsing="false" onAction="#eliminarFoto" text="Eliminar" />
+      <Button fx:id="btnEliminarFoto" layoutX="496.0" layoutY="355.0" mnemonicParsing="false" onAction="#eliminarFoto" text="Eliminar" />
       <ComboBox fx:id="cmbBoxAlbum" layoutX="19.0" layoutY="89.0" onAction="#mostrarFotos" prefHeight="25.0" prefWidth="111.0" />
       <Label fx:id="lblSeleccionarAlbum" layoutX="19.0" layoutY="50.0" prefHeight="17.0" prefWidth="150.0" text="Seleccionar album" />
       <ScrollPane fx:id="scrollPaneFotos" layoutX="244.0" layoutY="50.0" prefHeight="275.0" prefWidth="360.0">
@@ -20,5 +20,6 @@
       </ScrollPane>
       <Label fx:id="lblDescFoto" layoutX="324.0" layoutY="336.0" prefHeight="17.0" prefWidth="201.0" />
       <Button fx:id="btnEliminarAlbum" layoutX="147.0" layoutY="89.0" mnemonicParsing="false" onAction="#eliminarAlbum" text="Eliminar" />
+      <Button fx:id="btnAgregarFoto" layoutX="399.0" layoutY="355.0" mnemonicParsing="false" onAction="#agregarFoto" text="Agregar Foto" />
    </children>
 </AnchorPane>

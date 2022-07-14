@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -11,11 +12,13 @@
       <Label fx:id="lblDescripcion" layoutX="80.0" layoutY="113.0" text="Descripcion: " />
       <Label fx:id="lblLugar" layoutX="80.0" layoutY="183.0" prefHeight="17.0" prefWidth="78.0" text="Lugar:" />
       <Button fx:id="btnCancelarEdicion" layoutX="229.0" layoutY="330.0" mnemonicParsing="false" onAction="#cancelarEdicion" text="Cancelar" />
-      <Label fx:id="lblPersonas" layoutX="80.0" layoutY="252.0" text="Personas: " />
+      <Label fx:id="lblPersonas" layoutX="80.0" layoutY="265.0" text="Personas: " />
       <Button fx:id="btnEditar" layoutX="311.0" layoutY="330.0" mnemonicParsing="false" onAction="#editar" text="Editar" />
       <TextField fx:id="txtDescripcion" layoutX="237.0" layoutY="109.0" />
       <TextField fx:id="txtLugar" layoutX="237.0" layoutY="179.0" />
-      <TextField fx:id="txtPersonas" layoutX="237.0" layoutY="240.0" />
+      <TextField fx:id="txtPersonas" layoutX="237.0" layoutY="261.0" />
       <Label fx:id="lblNombreAlbum" layoutX="240.0" layoutY="46.0" prefHeight="17.0" prefWidth="149.0" />
+      <DatePicker fx:id="datePickerEditar" layoutX="237.0" layoutY="222.0" prefHeight="25.0" prefWidth="149.0" />
+      <Label fx:id="lblFecha" layoutX="80.0" layoutY="226.0" prefHeight="17.0" prefWidth="41.0" text="Fecha" />
    </children>
 </AnchorPane>

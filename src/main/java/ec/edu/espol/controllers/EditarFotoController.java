@@ -12,6 +12,7 @@ import ec.edu.espol.util.EndiabladaLinkedList;
 import ec.edu.espol.util.ListaArreglo;
 import java.io.IOException;
 import java.net.URL;
+import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
@@ -21,6 +22,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
@@ -56,6 +58,10 @@ public class EditarFotoController implements Initializable {
     private Album albumTemp;
     @FXML
     private Button btnCancelarEdicion;
+    @FXML
+    private DatePicker datePickerEditar;
+    @FXML
+    private Label lblFecha;
 
     /**
      * Initializes the controller class.
@@ -72,6 +78,7 @@ public class EditarFotoController implements Initializable {
         String personas = txtPersonas.getText();
         String lugar = txtLugar.getText();
         String descripcion = txtDescripcion.getText();
+        LocalDate fecha = datePickerEditar.getValue();
         if (lugar.replaceAll(" ", "").length() != 0 && descripcion.replaceAll(" ", "").length() != 0 && personas.replaceAll(" ", "").length() != 0) {
             personas = personas.replaceAll("\\[", "");
             personas = personas.replaceAll("\\]", "");
@@ -91,6 +98,7 @@ public class EditarFotoController implements Initializable {
             f.setListaPersonas(lPersonas);
             f.setDescripcion(descripcion);
             f.setLugar(lugar);
+            f.setFecha(fecha);
             App.escribirLista(listaAlbumes);
             App.mostrarAlerta(Alert.AlertType.INFORMATION, "FOTO EDITADA", "La foto se ha editado con éxito");
         }
@@ -122,5 +130,8 @@ public class EditarFotoController implements Initializable {
         txtPersonas.setText(tempFoto.getListaPersonas().toString());
         txtDescripcion.setText(tempFoto.getDescripcion());
         txtLugar.setText(tempFoto.getLugar());
+        datePickerEditar.setValue(tempFoto.getFecha());
     }
+    
+    
 }
