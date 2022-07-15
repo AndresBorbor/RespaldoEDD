@@ -27,7 +27,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
-import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.TilePane;
@@ -58,12 +57,6 @@ public class VentanaEditarController implements Initializable {
     private Button btnEliminarAlbum;
 
     private Fotografia fTemp;
-    @FXML
-    private Button btnAgregarFoto;
-
-    private Album albumSeleccionado;
-    @FXML
-    private TextField txtBuscar;
 
     /**
      * Initializes the controller class.
@@ -72,8 +65,8 @@ public class VentanaEditarController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
         listaAlbumes = App.leerLista();
-        
-        
+        String filename = "src/archivos/listaAlbum.dat";
+        Path p = Paths.get(filename);
         for (int i = 0; i < listaAlbumes.size(); i++) {
             cmbBoxAlbum.getItems().add(listaAlbumes.get(i));
         }
@@ -114,12 +107,12 @@ public class VentanaEditarController implements Initializable {
     @FXML
     private void eliminarAlbum(ActionEvent event) throws IOException {
         listaAlbumes = App.leerLista();
-        albumSeleccionado = (Album) cmbBoxAlbum.getSelectionModel().getSelectedItem();
-        if (albumSeleccionado != null) {
-            int indice = listaAlbumes.indexOf(albumSeleccionado);
+        Album a = (Album) cmbBoxAlbum.getSelectionModel().getSelectedItem();
+        if (a != null) {
+            int indice = listaAlbumes.indexOf(a);
             listaAlbumes.remove(indice);
-            Path p = Paths.get("src/archivos/" + albumSeleccionado.getNombre());
-            File f = new File("src/archivos/" + albumSeleccionado.getNombre());
+            Path p = Paths.get("src/archivos/" + a.getNombre());
+            File f = new File("src/archivos/" + a.getNombre());
             String[] entries = f.list();
             for (String s : entries) {
                 File currentFile = new File(f.getPath(), s);
@@ -139,9 +132,9 @@ public class VentanaEditarController implements Initializable {
     private void eliminarFoto(ActionEvent event) {
 
         listaAlbumes = App.leerLista();
-        albumSeleccionado = (Album) cmbBoxAlbum.getSelectionModel().getSelectedItem();
-        listaFotos = albumSeleccionado.getListaFotos();
-        int index = listaAlbumes.indexOf(albumSeleccionado);
+        Album alb = (Album) cmbBoxAlbum.getSelectionModel().getSelectedItem();
+        listaFotos = alb.getListaFotos();
+        int index = listaAlbumes.indexOf(alb);
         Album a = listaAlbumes.get(index);
 
         if (a != null && fTemp != null) {
@@ -164,28 +157,31 @@ public class VentanaEditarController implements Initializable {
 
     @FXML
     private void editarFoto(ActionEvent event) {
-        albumSeleccionado = (Album) cmbBoxAlbum.getSelectionModel().getSelectedItem();
-        if (albumSeleccionado == null) {
+        Album alb = (Album) cmbBoxAlbum.getSelectionModel().getSelectedItem();
+        if(alb == null){
             App.mostrarAlerta(Alert.AlertType.ERROR, "ALBUM NO SELECCIONADO", "Seleccione un album primero");
-        } else {
+        }else{
             listaAlbumes = App.leerLista();
-
-            int index = listaAlbumes.indexOf(albumSeleccionado);
+        
+            int index = listaAlbumes.indexOf(alb);
             Album a = listaAlbumes.get(index);
+        
+        
 
-            try {
-                FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("EditarFoto.fxml"));
-                Parent root = fxmlLoader.load();
-                EditarFotoController jc = fxmlLoader.getController();
-                Scene scene = new Scene(root);
-                Stage stage = new Stage();
-                stage.setScene(scene);
-                jc.init(fTemp, a);
-                stage.showAndWait();
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("EditarFoto.fxml"));
+            Parent root = fxmlLoader.load();
+            EditarFotoController jc = fxmlLoader.getController();
+            Scene scene = new Scene(root);
+            Stage stage = new Stage();
+            stage.setScene(scene);
+            jc.init(fTemp, a);
+            stage.showAndWait();
+            
 
             } catch (IOException ex) {
                 System.out.println(ex.getMessage());
-
+            
             } catch (Exception ex) {
                 App.mostrarAlerta(Alert.AlertType.ERROR, "FOTO SIN SELECCIONAR", "Eliga una foto primero");
             }
@@ -204,41 +200,4 @@ public class VentanaEditarController implements Initializable {
             ex.getMessage();
         }
     }
-
-    @FXML
-    private void agregarFoto() {
-        albumSeleccionado = (Album) cmbBoxAlbum.getSelectionModel().getSelectedItem();
-        if (albumSeleccionado == null) {
-            App.mostrarAlerta(Alert.AlertType.ERROR, "ALBUM NO SELECCIONADO", "Seleccione un album primero");
-        } else {
-            try {
-                FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("Photo.fxml"));
-                Parent root = fxmlLoader.load();
-                PhotoController jc = fxmlLoader.getController();
-                Scene scene = new Scene(root);
-                Stage stage = new Stage();
-                stage.setScene(scene);
-                jc.init(albumSeleccionado);
-                stage.showAndWait();
-                
-                
-
-            } catch (IOException ex) {
-                ex.getMessage();
-            }
-        }
-    }
-    
-    @FXML
-    private void filtrar(){
-        String textoBuscar = txtBuscar.getText();
-        if(!textoBuscar.contains(", ")){
-            
-        }else{
-            String[] listaPeronas = textoBuscar.split(", ");
-            
-        }
-        
-    }
-    
 }

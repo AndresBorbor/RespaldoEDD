@@ -33,14 +33,19 @@ import java.util.Arrays;
  * JavaFX App
  */
 public class App extends Application implements Serializable {
-
+    
+    protected int id;
+    
+    
     public static Scene scene;
     //RUTA DE PRUEBA, DEBE CAMBIARSE
-    public final static String RUTA = "src/archivos/listaAlbumes.txt";
+    public static ListaArreglo<App> apps;
+    public static String RUTA;
+    public static String RUTALOGIN = "src/archivos/listaApps.txt";
 
     @Override
     public void start(Stage stage) throws IOException {
-        scene = new Scene(loadFXML("PrimeraVista"), 640, 480);
+        scene = new Scene(loadFXML("VentanaLogin"), 640, 480);
         stage.setScene(scene);
         stage.show();
     }
@@ -60,6 +65,25 @@ public class App extends Application implements Serializable {
         al.setContentText(contenido);
         al.showAndWait();
     }
+    
+    public static void escribirApp(String user, String pasWord){        
+        try(BufferedWriter bf = new BufferedWriter(new FileWriter(RUTALOGIN))){
+            /*int id = ID.nextID("src/archivos/listaApps.txt");
+            bf.write(user +"|");
+            bf.write(pasWord+"|");
+            bf.write(id+"|");*/
+        }catch(IOException e){
+            e.getMessage();
+        }
+        
+    }
+    
+    //public static ListaArreglo<App> leerApp(){
+        
+    //}
+    
+    
+
 
     public static ListaArreglo<Album> leerLista() {
 
@@ -164,6 +188,7 @@ public class App extends Application implements Serializable {
 
     public static void main(String[] args) {
         launch();
+       
 
     }
 

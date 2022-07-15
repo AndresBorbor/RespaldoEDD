@@ -1,0 +1,2 @@
+Yoser1|contraseña123
+listaAlbumUsuario|contraseña123

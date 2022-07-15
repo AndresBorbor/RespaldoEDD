@@ -56,7 +56,6 @@ public class PrimeraVistaController implements Initializable {
                 folders.getItems().add(list.get(i));
             }
         }
-        
 
     }
 
