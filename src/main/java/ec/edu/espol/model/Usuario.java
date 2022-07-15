@@ -32,6 +32,11 @@ public class Usuario {
     public void setPassWord(String passWord) {
         this.passWord = passWord;
     }
+
+    @Override
+    public String toString() {
+        return user;
+    }
     
     
 }

@@ -1,2 +1,2 @@
-Yoser1|contraseña123
-listaAlbumUsuario|contraseña123
+Yoser1|contrasenia123
+listaAlbumUsuario|contrasenia123

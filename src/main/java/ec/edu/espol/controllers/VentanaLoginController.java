@@ -43,14 +43,14 @@ public class VentanaLoginController implements Initializable {
     @FXML
     private void btnIngresar(ActionEvent event) {
         ListaArreglo<Usuario> lUser = VentanaLoginController.leerLista();
-
         try {
             for (int i = 0; i < lUser.size(); i++) {
                 Usuario un = lUser.get(i);
+                System.out.println(un.getUser() + un.getPassWord());
                 if ((un.getUser().equals(txtUsuario.getText()) && un.getPassWord().equals(txtPassword.getText()))) {
                     FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("PrimeraVista.fxml"));
                     Parent root = fxmlLoader.load();
-                    VCrearUsuarioController jc = fxmlLoader.getController();
+                    PrimeraVistaController jc = fxmlLoader.getController();
                     App.scene.setRoot(root);
                     
                 }

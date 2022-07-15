@@ -66,25 +66,8 @@ public class App extends Application implements Serializable {
         al.showAndWait();
     }
     
-    public static void escribirApp(String user, String pasWord){        
-        try(BufferedWriter bf = new BufferedWriter(new FileWriter(RUTALOGIN))){
-            /*int id = ID.nextID("src/archivos/listaApps.txt");
-            bf.write(user +"|");
-            bf.write(pasWord+"|");
-            bf.write(id+"|");*/
-        }catch(IOException e){
-            e.getMessage();
-        }
-        
-    }
-    
-    //public static ListaArreglo<App> leerApp(){
-        
-    //}
-    
-    
 
-
+    
     public static ListaArreglo<Album> leerLista() {
 
         ListaArreglo<Album> listaAlbumes = new ListaArreglo<Album>();
