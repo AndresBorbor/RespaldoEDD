@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ec.edu.espol.controllers.VentanaLoginController">
+   <children>
+      <TextField fx:id="txtUsuario" layoutX="92.0" layoutY="112.0" promptText="Usuario" />
+      <TextField fx:id="txtPassword" layoutX="92.0" layoutY="174.0" promptText="Contrasenia" />
+      <Button layoutX="92.0" layoutY="256.0" mnemonicParsing="false" onAction="#btnIngresar" text="ingresar" />
+      <Button layoutX="389.0" layoutY="268.0" mnemonicParsing="false" onAction="#btnCrear" text="Crear Usuario" />
+   </children>
+</AnchorPane>
